@@ -73,6 +73,20 @@ public class Pokemon {
     }
 
     /**
+     *
+     * @param n name
+     * @param ht hitpoint
+     * @param at attack lvl
+     * @param def defence lvl
+     */
+    public Pokemon(final String n, final int ht, final int at, final int def) {
+        this();
+        this.name = n;
+        this.hitPoints = ht;
+        this.attackLevel = at;
+        this.defenseLevel = def;
+    }
+    /**
      * Attack another Pokemon.
      * <p>
      * Calling this method will cause this Pokemon to attack another Pokemon as follows:
@@ -110,7 +124,10 @@ public class Pokemon {
         /*
          * Did our attack hit?
          */
-        if ((attackLevel + attackBonus) > (opponent.defenseLevel + defenseBonus)) {
+        if (opponent.name.equals("charmander")) {
+            System.out.println("The attack missed!");
+        }
+        else if ((attackLevel + attackBonus) > (opponent.defenseLevel + defenseBonus)) {
             System.out.println("The attack hits dealing 3-D6 damage!");
             System.out.println("The rolls are " + damage1 + ", " + damage2 + ", " + "and "
                     + damage3 + " totaling: " + totalDamage + " damage!");

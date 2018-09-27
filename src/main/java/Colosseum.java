@@ -67,12 +67,45 @@ public class Colosseum {
      * Sorry. The defense level must be between 1 and 23: 23
      *
      * @return tempPokemon - the Pokemon we built and are going to set our fighting Pokemon to <br>
-     *         (Look, we can return objects too!)
-     *         <p>
-     *         Implement this function.
+     * (Look, we can return objects too!)
+     * <p>
+     * Implement this function.
      */
     public static Pokemon buildPokemon() {
-        Pokemon tempPokemon = new Pokemon();
+        //Scanner sc = new Scanner(System.in);
+        System.out.print("Please name your Pokemon: ");
+        String name = myScan.next();
+        int hitPoint = 0, attackLvl = 0, defenceLvl = 0;
+        while (true) {
+            System.out.print("How many hit points will it have? (1-50): ");
+            hitPoint = myScan.nextInt();
+            if (hitPoint >= 1 && hitPoint <= MAX_HIT_POINTS) {
+                break;
+            } else {
+                System.out.print("Sorry. Hit points must be between 1 and " + MAX_HIT_POINTS + ": ");
+            }
+        }
+        System.out.print("Split fifty points between attack level and defense level\n");
+        while (true) {
+            System.out.print("Enter your attack level (1-" + (MAX_HIT_POINTS - 1) + "): ");
+            attackLvl = myScan.nextInt();
+            if (attackLvl >= 1 && attackLvl < MAX_HIT_POINTS) {
+                break;
+            } else {
+                System.out.print(" Sorry. The attack level must be between 1 and " + (MAX_HIT_POINTS - 1) + ": ");
+            }
+        }
+        while (true) {
+            System.out.print("Enter your defense level (1-" + (MAX_HIT_POINTS - attackLvl) + "): ");
+            defenceLvl = myScan.nextInt();
+            if (defenceLvl >= 1 && defenceLvl <= (MAX_HIT_POINTS - attackLvl)) {
+                break;
+            } else {
+                System.out.print("Sorry. The defense level must be between 1 and " + (MAX_HIT_POINTS - attackLvl) + ": ");
+            }
+        }
+        System.out.print("");
+        Pokemon tempPokemon = new Pokemon(name, hitPoint, attackLvl, defenceLvl);
         return tempPokemon;
     }
 
@@ -90,7 +123,17 @@ public class Colosseum {
      * Implement this function.
      */
     public static void printWhoIsAhead() {
-        System.out.println("Implement me!");
+        System.out.print(firstPokemon.name + " has " + firstPokemon.hitPoints + " hit points\n");
+        System.out.print(secondPokemon.name + " has " + secondPokemon.hitPoints + " hit points\n");
+        String ahead;
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            ahead = firstPokemon.name;
+        } else if (firstPokemon.hitPoints < secondPokemon.hitPoints) {
+            ahead = secondPokemon.name;
+        } else {
+            ahead = "no one";
+        }
+        System.out.print("\n" + ahead + " is currently ahead!\n");
     }
 
     /**
@@ -101,7 +144,11 @@ public class Colosseum {
      * Write this function.
      */
     public static void determineWinner() {
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            System.out.println(firstPokemon.name + " is Winner!!");
+        } else {
+            System.out.println(secondPokemon.name + " is Winner!!");
+        }
     }
 
     /**
@@ -113,14 +160,14 @@ public class Colosseum {
         System.out.println("Player 1, build your Pokemon!");
         System.out.println("=================");
         firstPokemon = buildPokemon();
-        firstPokemon.name = "Chuchu";
+        //firstPokemon.name = "Chuchu";
 
         System.out.println("");
 
         System.out.println("Player 2, build your Pokemon!");
         System.out.println("==================");
         secondPokemon = buildPokemon();
-        secondPokemon.name = "Xyz";
+        //secondPokemon.name = "Xyz";
     }
 
     /**
@@ -151,6 +198,7 @@ public class Colosseum {
             secondPokemon = tempPokemon;
         }
     }
+
     /**
      * Conducts the Pokemon battle.
      * <p>
